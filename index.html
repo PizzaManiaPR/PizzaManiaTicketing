@@ -203,7 +203,7 @@
       <div class="ticket-header">Pedido</div>
       <div class="ticket-items" id="ticket-items"></div>
       <div class="ticket-footer">
-        Total: <span id="total-price">₡0.00</span>
+        Total: <span id="total-price">$0.00</span>
         <button class="btn-checkout" onclick="facturar()">Facturar</button>
       </div>
     </div>
@@ -273,7 +273,7 @@
       div.innerHTML = `
         <img src="${p.img}" alt="${p.name}" />
         <div class="product-name">${p.name}</div>
-        <div class="product-price">₡${p.price}</div>
+        <div class="product-price">$${p.price}</div>
         <button onclick="agregarProducto('${p.id}', '${cat}')">Agregar</button>
       `;
       productsDiv.appendChild(div);
@@ -308,12 +308,12 @@
       div.innerHTML = `
         <div class="desc">${item.name}</div>
         <div class="qty">x${item.qty}</div>
-        <div class="price">₡${(item.price * item.qty).toFixed(2)}</div>
+        <div class="price">$${(item.price * item.qty).toFixed(2)}</div>
         <button onclick="quitarProducto('${item.id}')">&times;</button>
       `;
       ticketItemsDiv.appendChild(div);
     });
-    totalPriceSpan.textContent = `₡${total.toFixed(2)}`;
+    totalPriceSpan.textContent = `$${total.toFixed(2)}`;
   }
 
   function facturar() {
@@ -323,9 +323,9 @@
     }
     let mensaje = '¡Gracias por su compra!\n\nDetalles:\n';
     ticket.forEach(item => {
-      mensaje += `${item.qty} x ${item.name} = ₡${(item.price * item.qty).toFixed(2)}\n`;
+      mensaje += `${item.qty} x ${item.name} = $${(item.price * item.qty).toFixed(2)}\n`;
     });
-    mensaje += `\nTotal a pagar: ₡${ticket.reduce((a,i) => a + i.price * i.qty, 0).toFixed(2)}`;
+    mensaje += `\nTotal a pagar: $${ticket.reduce((a,i) => a + i.price * i.qty, 0).toFixed(2)}`;
     alert(mensaje);
     ticket = [];
     renderTicket();
@@ -333,3 +333,4 @@
 </script>
 </body>
 </html>
+
