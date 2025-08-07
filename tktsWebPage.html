@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PizzaManía - Pedido</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 1rem; background: #f9f9f9; }
+  h1 { text-align: center; color: #c0392b; }
+  .section { margin-bottom: 1.5rem; }
+  .btn-group button {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .btn-group button.selected {
+    background-color: #c0392b;
+    color: white;
+    border-color: #a93226;
+  }
+  label { display: block; margin-top: 0.5rem; }
+  input[type="number"] { width: 60px; }
+  #total { font-size: 1.5rem; font-weight: bold; color: #27ae60; }
+  #ticket { white-space: pre-wrap; background: #fff; border: 1px solid #ccc; padding: 1rem; margin-top: 1rem; }
+  button.print-btn { background-color: #2980b9; color: white; border: none; padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer; }
+  button.print-btn:hover { background-color: #1c5980; }
+</style>
+</head>
+<body>
+
+<h1>PizzaManía - Pedido</h1>
+
+<div class="section">
+  <label for="cliente">Nombre del cliente:</label>
+  <input type="text" id="cliente" placeholder="Tu nombre" />
+</div>
+
+<div class="section">
+  <label>Tamaño de pizza:</label>
+  <div class="btn-group" id="tamanio-group">
+    <button data-value="Personal">Personal ($60)</button>
+    <button data-value="Chica">Chica ($100)</button>
+    <button data-value="Mediana">Mediana ($140)</button>
+  </div>
+</div>
+
+<div class="section">
+  <label>Especialidad de pizza:</label>
+  <div class="btn-group" id="especialidad-group">
+    <button data-value="Pepperoni">Pepperoni</button>
+    <button data-value="Hawaiana">Hawaiana</button>
+    <button data-value="Carnes Frías">Carnes Frías</button>
+    <button data-value="Vegetariana">Vegetariana</button>
+  </div>
+</div>
+
+<div class="section">
+  <label>Cantidad de hamburguesas ($55 c/u):</label>
+  <input type="number" id="hamburguesas" min="0" value="0" />
+</div>
+
+<div class="section">
+  <label>Cantidad de hot dogs ($30 c/u):</label>
+  <input type="number" id="hotdogs" min="0" value="0" />
+</div>
+
+<div class="section">
+  <label>Cantidad de extras (papas, etc. $45 c/u):</label>
+  <input type="number" id="extras" min="0" value="0" />
+</div>
+
+<div class="section">
+  <label>Cantidad de refrescos ($25 c/u):</label>
+  <input type="number" id="refrescos" min="0" value="0" />
+</div>
+
+<div class="section">
+  <label>Método de pago:</label>
+  <div class="btn-group" id="pago-group">
+    <button data-value="Efectivo">Efectivo</button>
+    <button data-value="Tarjeta">Tarjeta</button>
+  </div>
+</div>
+
+<div class="section">
+  <div id="total">Total: $0</div>
+</div>
+
+<div class="section" style="text-align:center;">
+  <button class="print-btn" id="generar-ticket">Generar e Imprimir Ticket</button>
+</div>
+
+<div id="ticket"></div>
+
+<script>
+  const precios = {
+    "Personal": 60,
+    "Chica": 100,
+    "Mediana": 140,
+    "hamburguesa": 55,
+    "hotdog": 30,
+    "extra": 45,
+    "refresco": 25
+  };
+
+  // Variables seleccionadas
+  let tamanio = null;
+  let especialidad = null;
+  let pago = null;
+
+  function actualizarTotal() {
+    const hamburguesas = parseInt(document.getElementById('hamburguesas').value) || 0;
+    const hotdogs = parseInt(document.getElementById('hotdogs').value) || 0;
+    const extras = parseInt(document.getElementById('extras').value) || 0;
+    const refrescos = parseInt(document.getElementById('refrescos').value) || 0;
+
+    if (!tamanio) {
+      document.getElementById('total').textContent = "Total: $0 (Selecciona tamaño de pizza)";
+      return;
+    }
+
+    let total = precios[tamanio] + 
+      hamburguesas * precios.hamburguesa + 
+      hotdogs * precios.hotdog + 
+      extras * precios.extra + 
+      refrescos * precios.refresco;
+
+    document.getElementById('total').textContent = "Total: $" + total;
+    return total;
+  }
+
+  function seleccionarBoton(grupoId, callback) {
+    const grupo = document.getElementById(grupoId);
+    grupo.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        grupo.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        callback(btn.getAttribute("data-value"));
+        actualizarTotal();
+      });
+    });
+  }
+
+  seleccionarBoton("tamanio-group", val => tamanio = val);
+  seleccionarBoton("especialidad-group", val => especialidad = val);
+  seleccionarBoton("pago-group", val => pago = val);
+
+  // Actualiza total cuando cambian cantidades
+  ['hamburguesas', 'hotdogs', 'extras', 'refrescos'].forEach(id => {
+    document.getElementById(id).addEventListener("input", actualizarTotal);
+  });
+
+  document.getElementById("generar-ticket").addEventListener("click", () => {
+    const cliente = document.getElementById("cliente").value.trim();
+    const hamburguesas = parseInt(document.getElementById('hamburguesas').value) || 0;
+    const hotdogs = parseInt(document.getElementById('hotdogs').value) || 0;
+    const extras = parseInt(document.getElementById('extras').value) || 0;
+    const refrescos = parseInt(document.getElementById('refrescos').value) || 0;
+
+    if (!cliente) return alert("Por favor ingresa el nombre del cliente.");
+    if (!tamanio) return alert("Por favor selecciona el tamaño de pizza.");
+    if (!especialidad) return alert("Por favor selecciona la especialidad de pizza.");
+    if (!pago) return alert("Por favor selecciona el método de pago.");
+
+    let total = actualizarTotal();
+
+    const ahora = new Date();
+    const fecha = ahora.toLocaleDateString();
+    const hora = ahora.toLocaleTimeString();
+
+    let ticket = `
+================================
+         PizzaManía
+================================
+Cliente:   ${cliente}
+
+Pizza:     ${especialidad} - ${tamanio}   $${precios[tamanio]}
+
+Hamburguesas: ${hamburguesas} x $${precios.hamburguesa} = $${hamburguesas * precios.hamburguesa}
+Hot Dogs:     ${hotdogs} x $${precios.hotdog} = $${hotdogs * precios.hotdog}
+Extras:       ${extras} x $${precios.extra} = $${extras * precios.extra}
+Refrescos:    ${refrescos} x $${precios.refresco} = $${refrescos * precios.refresco}
+
+Pago:       ${pago}
+Fecha:      ${fecha}
+Hora:       ${hora}
+
+--------------------------------
+Total:      $${total}
+================================
+   ¡Gracias por tu preferencia!
+================================`;
+
+    // Mostrar ticket en pantalla
+    document.getElementById("ticket").textContent = ticket;
+
+    // Abrir ventana impresión
+    const printWindow = window.open('', '', 'width=600,height=600');
+    printWindow.document.write('<pre style="font-family: monospace; font-size: 14px;">' + ticket + '</pre>');
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+  });
+</script>
+
+</body>
+</html>
