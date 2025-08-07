@@ -1,253 +1,207 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PizzaMania - Ticket</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      background: #f8f8f8;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: row;
-      height: 100vh;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 15%;
-      min-width: 180px;
-      background: #444;
-      color: #ddd;
-      display: flex;
-      flex-direction: column;
-      padding-top: 20px;
-    }
-
-    .sidebar h3 {
-      text-align: center;
-      color: white;
-    }
-
-    .category {
-      padding: 12px 10px;
-      cursor: pointer;
-      border-left: 5px solid transparent;
-      transition: 0.2s;
-    }
-
-    .category:hover {
-      background: #555;
-    }
-
-    .category.active {
-      background: #e94e1b;
-      border-left-color: white;
-      font-weight: bold;
-      color: white;
-    }
-
-    /* Products Grid */
-    .products {
-      width: 50%;
-      background: white;
-      padding: 20px;
-      overflow-y: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 15px;
-    }
-
-    .product-card {
-      display: flex;
-      flex-direction: column;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .product-card img {
-      width: 100%;
-      height: 90px;
-      object-fit: cover;
-    }
-
-    .product-name {
-      padding: 8px;
-      font-weight: 600;
-      font-size: 14px;
-      text-align: center;
-      flex-grow: 1;
-    }
-
-    .add-button {
-      background: #e94e1b;
-      border: none;
-      color: white;
-      padding: 8px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .add-button:hover {
-      background: #cf3f14;
-    }
-
-    /* Ticket Panel */
-    .ticket-panel {
-      width: 35%;
-      background: #f2f2f2;
-      display: flex;
-      flex-direction: column;
-      border-left: 1px solid #ddd;
-    }
-
-    .ticket-header {
-      background: #e94e1b;
-      color: white;
-      padding: 15px;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .ticket-items {
-      flex-grow: 1;
-      padding: 10px 15px;
-      overflow-y: auto;
-    }
-
-    .ticket-item {
-      background: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 4px;
-    }
-
-    .ticket-item .desc {
-      font-size: 14px;
-      font-weight: 600;
-      flex-grow: 1;
-    }
-
-    .ticket-item .qty {
-      margin: 0 10px;
-      font-weight: 600;
-    }
-
-    .ticket-item .price {
-      width: 70px;
-      text-align: right;
-      font-weight: 600;
-    }
-
-    .ticket-item button {
-      background: transparent;
-      border: none;
-      font-size: 18px;
-      color: #e94e1b;
-      cursor: pointer;
-    }
-
-    .ticket-footer {
-      background: white;
-      padding: 15px;
-      font-weight: bold;
-      font-size: 18px;
-      border-top: 1px solid #ddd;
-    }
-
-    .btn-checkout {
-      background: #e94e1b;
-      color: white;
-      width: 100%;
-      border: none;
-      font-weight: bold;
-      padding: 12px;
-      margin-top: 10px;
-      cursor: pointer;
-      font-size: 18px;
-    }
-
-    .btn-checkout:hover {
-      background: #cf3f14;
-    }
-
-    /* Responsive */
-    @media screen and (max-width: 800px) {
-      .container {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 100%;
-        padding: 10px;
-        overflow-x: auto;
-        min-width: unset;
-      }
-
-      .category {
-        flex: 1 0 auto;
-        text-align: center;
-        border-left: none;
-        border-bottom: 3px solid transparent;
-      }
-
-      .category.active {
-        border-left: none;
-        border-bottom: 3px solid white;
-      }
-
-      .products {
-        width: 100%;
-      }
-
-      .ticket-panel {
-        width: 100%;
-        height: 300px;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PizzaMania - Ticket con tarjetas e imagen inicio</title>
+<style>
+  * { box-sizing: border-box; }
+  body, html { margin:0; padding:0; font-family: Arial, sans-serif; height:100vh; background:#f8f8f8; }
+  .container { display:flex; height:100vh; }
+  .sidebar {
+    width: 12%;
+    background: #333;
+    color: #ddd;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar h3 {
+    text-align:center;
+    color: white;
+    margin-bottom: 15px;
+  }
+  .category {
+    padding: 12px 10px;
+    cursor: pointer;
+    border-left: 5px solid transparent;
+    transition: 0.3s;
+  }
+  .category:hover {
+    background: #444;
+  }
+  .category.active {
+    background: #e94e1b;
+    border-left-color: white;
+    font-weight: bold;
+    color: white;
+  }
+  #products {
+    width: 53%;
+    background: white;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .product-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    width: 150px;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    transition: box-shadow 0.3s;
+  }
+  .product-card:hover {
+    box-shadow: 0 5px 15px rgb(0 0 0 / 0.2);
+  }
+  .product-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .product-name {
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .product-price {
+    color: #e94e1b;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  .product-card button {
+    background: #e94e1b;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .product-card button:hover {
+    background: #cf3f14;
+  }
+  .ticket-panel {
+    width: 35%;
+    background: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #ddd;
+  }
+  .ticket-header {
+    background: #e94e1b;
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .ticket-items {
+    flex-grow: 1;
+    padding: 10px 15px;
+    overflow-y: auto;
+  }
+  .ticket-item {
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  .ticket-item .desc {
+    font-size: 14px;
+    font-weight: 600;
+    flex-grow: 1;
+  }
+  .ticket-item .qty {
+    margin: 0 10px;
+    font-weight: 600;
+  }
+  .ticket-item .price {
+    width: 70px;
+    text-align: right;
+    font-weight: 600;
+  }
+  .ticket-item button {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #e94e1b;
+    cursor: pointer;
+  }
+  .ticket-footer {
+    background: white;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    border-top: 1px solid #ddd;
+  }
+  .btn-checkout {
+    background: #e94e1b;
+    color: white;
+    width: 100%;
+    border: none;
+    font-weight: bold;
+    padding: 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  .btn-checkout:hover {
+    background: #cf3f14;
+  }
+  #pantalla-inicio {
+    width: 53%;
+    background: white;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-right: 1px solid #ddd;
+  }
+  #pantalla-inicio img {
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+  #pantalla-inicio h2 {
+    font-weight: bold;
+    color: #e94e1b;
+  }
+</style>
 </head>
 <body>
   <div class="container">
     <div class="sidebar">
       <h3>CATEGORÍAS</h3>
-      <div class="category active" data-cat="todas">Todas</div>
-      <div class="category" data-cat="entradas">Entradas</div>
-      <div class="category" data-cat="casados">Casados</div>
-      <div class="category" data-cat="fastfood">Fast Food</div>
-      <div class="category" data-cat="adicionales">Adicionales</div>
-      <div class="category" data-cat="mariscos">Mariscos</div>
-      <div class="category" data-cat="vegetariano">Vegetariano</div>
-      <div class="category" data-cat="kidmenu">Kid Menu</div>
-      <div class="category" data-cat="postres">Postres</div>
+      <div class="category" data-cat="pizzas">Pizzas</div>
+      <div class="category" data-cat="hamburguesas">Hamburguesas</div>
+      <div class="category" data-cat="hotdogs">Hot Dogs</div>
+      <div class="category" data-cat="extras">Extras</div>
+      <div class="category" data-cat="bebidas">Bebidas</div>
+      <div class="category" data-cat="promociones">Promociones</div>
     </div>
 
-    <div class="products" id="products">
-      <!-- Productos aquí -->
+    <div id="pantalla-inicio">
+      <img src="images/logo.jpeg" alt="Logo PizzaMania" />
+      <h2>Selecciona una categoría para comenzar</h2>
     </div>
+
+    <div id="products" style="display:none;"></div>
 
     <div class="ticket-panel">
       <div class="ticket-header">Pedido</div>
-      <div class="ticket-items" id="ticket-items">
-        <!-- Ticket items -->
-      </div>
+      <div class="ticket-items" id="ticket-items"></div>
       <div class="ticket-footer">
         Total: <span id="total-price">₡0.00</span>
         <button class="btn-checkout" onclick="facturar()">Facturar</button>
@@ -255,95 +209,127 @@
     </div>
   </div>
 
-  <script>
-    const productos = [
-      { id: 1, cat: 'entradas', name: 'Ceviche', price: 5000, img: 'https://i.imgur.com/RTJvJxT.jpg' },
-      { id: 2, cat: 'casados', name: 'Casado de Pescado', price: 5500, img: 'https://i.imgur.com/Z55r0fO.jpg' },
-      { id: 3, cat: 'fastfood', name: 'Hamburguesa', price: 3200, img: 'https://i.imgur.com/3OZ3zpM.jpg' },
-      { id: 4, cat: 'adicionales', name: 'Papas a la Francesa', price: 1200, img: 'https://i.imgur.com/8DwPGE7.jpg' },
-      { id: 5, cat: 'mariscos', name: 'Langostinos', price: 7800, img: 'https://i.imgur.com/0sqZT9U.jpg' },
-      { id: 6, cat: 'vegetariano', name: 'Ensalada Mixta', price: 4500, img: 'https://i.imgur.com/AxHoEIT.jpg' },
-      { id: 7, cat: 'kidmenu', name: 'Nuggets', price: 2000, img: 'https://i.imgur.com/7EYO0Fn.jpg' },
-      { id: 8, cat: 'postres', name: 'Flan de Coco', price: 2500, img: 'https://i.imgur.com/LYi0M02.jpg' }
-    ];
+<script>
+  const productos = {
+    pizzas: [
+      { id: 'p1', name: 'Personal', price: 60, img: 'https://i.imgur.com/8r0hYzs.jpg' },
+      { id: 'p2', name: 'Chica', price: 100, img: 'https://i.imgur.com/QaAcs6Z.jpg' },
+      { id: 'p3', name: 'Mediana', price: 140, img: 'https://i.imgur.com/VcI2ylp.jpg' }
+    ],
+    hamburguesas: [
+      { id: 'h1', name: 'Clásica', price: 55, img: 'https://i.imgur.com/fARQzGc.jpg' },
+      { id: 'h2', name: 'Norteña', price: 70, img: 'https://i.imgur.com/lFiW7gn.jpg' },
+      { id: 'h3', name: 'Hawaiana', price: 70, img: 'https://i.imgur.com/B4rFom6.jpg' },
+      { id: 'h4', name: 'Doble Carne', price: 85, img: 'https://i.imgur.com/y1ZQkCv.jpg' },
+      { id: 'promoh', name: 'Promoción 2x95', price: 95, img: 'https://i.imgur.com/fARQzGc.jpg' }
+    ],
+    hotdogs: [
+      { id: 'hd1', name: 'Clásico', price: 30, img: 'https://i.imgur.com/LLp0zDz.jpg' },
+      { id: 'hd2', name: 'Salchichón', price: 40, img: 'https://i.imgur.com/yUz1BQL.jpg' },
+      { id: 'hd3', name: 'Pepperoni', price: 35, img: 'https://i.imgur.com/yF6g5Df.jpg' },
+      { id: 'hd4', name: 'Hawaiano', price: 35, img: 'https://i.imgur.com/EIkwGcc.jpg' },
+      { id: 'promohd', name: 'Promoción 3x70', price: 70, img: 'https://i.imgur.com/LLp0zDz.jpg' }
+    ],
+    extras: [
+      { id: 'e1', name: 'Papas a la francesa', price: 45, img: 'https://i.imgur.com/eqoMmsY.jpg' },
+      { id: 'e2', name: 'Papas en gajo', price: 60, img: 'https://i.imgur.com/FUuB9FL.jpg' }
+    ],
+    bebidas: [
+      { id: 'b1', name: 'Refresco', price: 25, img: 'https://i.imgur.com/MYdROpJ.jpg' }
+    ],
+    promociones: [
+      { id: 'pr1', name: '2 Hamburguesas clásicas', price: 95, img: 'https://i.imgur.com/fARQzGc.jpg' },
+      { id: 'pr2', name: '3 Hot dogs clásicos', price: 70, img: 'https://i.imgur.com/LLp0zDz.jpg' }
+    ]
+  };
 
-    let ticket = [];
+  let ticket = [];
 
-    const productsDiv = document.getElementById('products');
-    const ticketItemsDiv = document.getElementById('ticket-items');
-    const totalPriceSpan = document.getElementById('total-price');
-    const categories = document.querySelectorAll('.category');
+  const productsDiv = document.getElementById('products');
+  const ticketItemsDiv = document.getElementById('ticket-items');
+  const totalPriceSpan = document.getElementById('total-price');
+  const categories = document.querySelectorAll('.category');
+  const pantallaInicio = document.getElementById('pantalla-inicio');
 
-    function renderProductos(cat) {
-      productsDiv.innerHTML = '';
-      const items = cat === 'todas' ? productos : productos.filter(p => p.cat === cat);
-      items.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.innerHTML = `
-          <img src="${p.img}" alt="${p.name}">
-          <div class="product-name">${p.name}</div>
-          <button class="add-button" onclick="agregarProducto(${p.id})">Agregar</button>
-        `;
-        productsDiv.appendChild(card);
-      });
-    }
-
-    categories.forEach(cat => {
-      cat.addEventListener('click', () => {
-        categories.forEach(c => c.classList.remove('active'));
-        cat.classList.add('active');
-        renderProductos(cat.getAttribute('data-cat'));
-      });
+  categories.forEach(cat => {
+    cat.addEventListener('click', () => {
+      categories.forEach(c => c.classList.remove('active'));
+      cat.classList.add('active');
+      pantallaInicio.style.display = 'none';
+      productsDiv.style.display = 'flex';
+      renderProductos(cat.getAttribute('data-cat'));
     });
+  });
 
-    function agregarProducto(id) {
-      const prod = productos.find(p => p.id === id);
-      const existe = ticket.find(item => item.id === id);
-      if (existe) {
-        existe.qty++;
-      } else {
-        ticket.push({ ...prod, qty: 1 });
-      }
-      renderTicket();
+  function renderProductos(cat) {
+    productsDiv.innerHTML = '';
+    if (!productos[cat]) {
+      productsDiv.style.display = 'none';
+      return;
     }
+    productos[cat].forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'product-card';
+      div.innerHTML = `
+        <img src="${p.img}" alt="${p.name}" />
+        <div class="product-name">${p.name}</div>
+        <div class="product-price">₡${p.price}</div>
+        <button onclick="agregarProducto('${p.id}', '${cat}')">Agregar</button>
+      `;
+      productsDiv.appendChild(div);
+    });
+  }
 
-    function quitarProducto(id) {
-      ticket = ticket.filter(p => p.id !== id);
-      renderTicket();
+  function agregarProducto(id, cat) {
+    const prod = productos[cat].find(p => p.id === id);
+    if (!prod) return;
+
+    const existe = ticket.find(item => item.id === id);
+    if (existe) {
+      existe.qty++;
+    } else {
+      ticket.push({ ...prod, qty: 1 });
     }
+    renderTicket();
+  }
 
-    function renderTicket() {
-      ticketItemsDiv.innerHTML = '';
-      let total = 0;
-      ticket.forEach(item => {
-        total += item.price * item.qty;
-        const div = document.createElement('div');
-        div.className = 'ticket-item';
-        div.innerHTML = `
-          <div class="desc">${item.name}</div>
-          <div class="qty">x${item.qty}</div>
-          <div class="price">₡${(item.price * item.qty).toFixed(2)}</div>
-          <button onclick="quitarProducto(${item.id})">&times;</button>
-        `;
-        ticketItemsDiv.appendChild(div);
-      });
-      totalPriceSpan.textContent = `₡${total.toFixed(2)}`;
+  function quitarProducto(id) {
+    ticket = ticket.filter(p => p.id !== id);
+    renderTicket();
+  }
+
+  function renderTicket() {
+    ticketItemsDiv.innerHTML = '';
+    let total = 0;
+    ticket.forEach(item => {
+      total += item.price * item.qty;
+      const div = document.createElement('div');
+      div.className = 'ticket-item';
+      div.innerHTML = `
+        <div class="desc">${item.name}</div>
+        <div class="qty">x${item.qty}</div>
+        <div class="price">₡${(item.price * item.qty).toFixed(2)}</div>
+        <button onclick="quitarProducto('${item.id}')">&times;</button>
+      `;
+      ticketItemsDiv.appendChild(div);
+    });
+    totalPriceSpan.textContent = `₡${total.toFixed(2)}`;
+  }
+
+  function facturar() {
+    if (ticket.length === 0) {
+      alert('El ticket está vacío.');
+      return;
     }
-
-    function facturar() {
-      if (ticket.length === 0) return alert('El ticket está vacío.');
-      let mensaje = '¡Gracias por su compra!\n\nDetalles:\n';
-      ticket.forEach(item => {
-        mensaje += `${item.qty} x ${item.name} = ₡${(item.price * item.qty).toFixed(2)}\n`;
-      });
-      mensaje += `\nTotal a pagar: ₡${ticket.reduce((a,i)=>a+i.price*i.qty,0).toFixed(2)}`;
-      alert(mensaje);
-      ticket = [];
-      renderTicket();
-    }
-
-    renderProductos('todas');
-  </script>
+    let mensaje = '¡Gracias por su compra!\n\nDetalles:\n';
+    ticket.forEach(item => {
+      mensaje += `${item.qty} x ${item.name} = ₡${(item.price * item.qty).toFixed(2)}\n`;
+    });
+    mensaje += `\nTotal a pagar: ₡${ticket.reduce((a,i) => a + i.price * i.qty, 0).toFixed(2)}`;
+    alert(mensaje);
+    ticket = [];
+    renderTicket();
+  }
+</script>
 </body>
 </html>
